@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const openaiHeaders = {
-  Authorization: `Bearer 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`,
+  Authorization: `Bearer APIKEY`,
   "Content-Type": "application/json",
 };
 
