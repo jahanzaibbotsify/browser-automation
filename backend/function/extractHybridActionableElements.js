@@ -11,7 +11,10 @@ const extractHybridActionableElements = async (page, limit = 40) => {
       return el.tagName.toLowerCase();
     }
 
-    const allElements = Array.from(document.querySelectorAll("*"));
+    const body = document.body;
+    if (!body) return [];
+
+    const allElements = Array.from(body.querySelectorAll("*")); // only inside <body>
     const actionable = [];
 
     for (let el of allElements) {

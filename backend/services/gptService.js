@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const openaiHeaders = {
-  Authorization: `Bearer APIKEY`,
+  Authorization: `Bearer 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`,
   "Content-Type": "application/json",
 };
 
@@ -10,7 +10,7 @@ const callOpenAI = async (messages, max_tokens = 300) => {
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
-        model: "gpt-4",
+        model: "gpt-4-turbo",
         messages,
         temperature: 0.3,
         max_tokens,
@@ -49,26 +49,27 @@ Only return a pure JSON array. No extra text.`,
 
 // STEP 2: Use refined instruction and cleaned DOM (structured JSON) to extract selector and action
 const getLLMElementSelector = async (instruction, dom) => {
-  const domJson = JSON.stringify(dom, null, 2).slice(0, 25000);
-  console.log(domJson);
+  const domJson = JSON.stringify(dom, null, 2);
   const prompt = `
-You are a smart browser automation agent.
-Given the user's instruction and the page's cleaned DOM tree (in structured JSON), identify the best action to take.
-Respond in the following JSON format:
-
-{
-  "action": "type", 
-  "details": {
-    "selector": "input[name='search']",
-    "text": "Laptops"
+  You are a smart browser automation agent.
+  Given the user's instruction and the current cleaned DOM tree (in structured JSON), respond with the best action to take next.
+  Use this JSON format only:
+  
+  {
+    "action": "click" | "type" | "navigate" | "submit" | "press" | "extract",
+    "details": {
+      "selector": "CSS selector string",
+      "text": "text to type (if applicable)",
+      "key": "Enter/Tab/etc (if press)",
+      "url": "https://... (if navigate)"
+    }
   }
-}
-
-Only return valid JSON. No explanation or additional commentary.
-
-Instruction: "${instruction}"
-DOM: ${domJson}
-`;
+  
+  Only return valid JSON. No explanation or extra text.
+  
+  Instruction: "${instruction}"
+  DOM: ${domJson}
+  `;
 
   const messages = [{ role: "user", content: prompt }];
 
