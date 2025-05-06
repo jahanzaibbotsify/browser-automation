@@ -1,7 +1,8 @@
 const axios = require("axios");
+require('dotenv').config(); // Make sure this is at the top if using dotenv
 
 const openaiHeaders = {
-  Authorization: `Bearer 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`,
+  Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
   "Content-Type": "application/json",
 };
 
