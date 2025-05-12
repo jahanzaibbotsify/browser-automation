@@ -2,7 +2,7 @@ const axios = require("axios");
 require('dotenv').config(); // Make sure this is at the top if using dotenv
 
 const openaiHeaders = {
-  Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+  Authorization: `Bearer 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`,
   "Content-Type": "application/json",
 };
 
@@ -14,7 +14,6 @@ const callOpenAI = async (messages, max_tokens = 300) => {
         model: "gpt-4-turbo",
         messages,
         temperature: 0.3,
-        max_tokens,
       },
       { headers: openaiHeaders }
     );
@@ -41,7 +40,7 @@ Output the steps in the following JSON format:
 
 Only return a pure JSON array. No extra text.`,
     },
-    { role: "user", content: instruction.join(". ") },
+    { role: "user", content: instruction },
   ];
   const jsonString = await callOpenAI(messages, 200);
   console.log("Refined Instruction Array:", jsonString);

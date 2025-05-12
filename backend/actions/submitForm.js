@@ -5,7 +5,7 @@ const performSubmitForm = async (page, selector) => {
     }
 
     // Wait for and click the submit button to submit the form
-    await page.waitForSelector(selector, { visible: true, timeout: 5000 });
+    await page.waitForSelector(selector, { visible: true, timeout: 50000 });
     await page.click(selector);
 
     console.log(`✅ Submitted form using button: ${selector}`);

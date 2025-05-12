@@ -4,7 +4,7 @@ const performType = async (page, selector, text) => {
       throw new Error("Missing selector or text for typing.");
     }
 
-    await page.waitForSelector(selector, { timeout: 5000 });
+    await page.waitForSelector(selector, { timeout: 50000 });
     await page.type(selector, text, { delay: 100 });
 
     return { success: true, action: "type", selector, text };

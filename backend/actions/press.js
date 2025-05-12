@@ -3,7 +3,7 @@ const performPress = async (page, selector, key) => {
   if (!key) throw new Error("❌ No key specified for press action");
 
   // Focus and press the key
-  await page.waitForSelector(selector, { visible: true, timeout: 5000 });
+  await page.waitForSelector(selector, { visible: true, timeout: 50000 });
   await page.focus(selector);
   await page.keyboard.press(key);
 

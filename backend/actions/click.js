@@ -4,7 +4,7 @@ const performClick = async (page, selector) => {
       throw new Error("Missing selector.");
     }
 
-    await page.waitForSelector(selector, { timeout: 5000 });
+    await page.waitForSelector(selector, { timeout: 50000 });
     await page.click(selector);
 
     return { success: true, action: "click", selector };
